@@ -1,9 +1,5 @@
-
 package Stud_Register;
-
-
-import com.example.util.DBUtil;
-
+import Stud_Register.DBUtil;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -40,4 +36,7 @@ public class ShowAllServlet extends HttpServlet {
         request.getRequestDispatcher("show.jsp").forward(request, response);
     }
 }
+
+
+
 
