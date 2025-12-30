@@ -1,25 +1,28 @@
 package Stud_Register;
-import com.example.util.DBUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 @WebServlet("/register")
 public class RegisterServlet extends HttpServlet {
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws IOException {
 
-        String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        int year = Integer.parseInt(request.getParameter("year"));
+        String name = req.getParameter("name");
+        String email = req.getParameter("email");
+        int year = Integer.parseInt(req.getParameter("year"));
 
         try (Connection conn = DBUtil.getConnection()) {
-            String sql = "INSERT INTO students (name, email, year) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO students VALUES (NULL, ?, ?, ?)";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, name);
             ps.setString(2, email);
@@ -29,6 +32,6 @@ public class RegisterServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-        response.sendRedirect("show_all");
+        resp.sendRedirect("show_all");
     }
 }
